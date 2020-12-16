@@ -31,10 +31,12 @@ int main(){
     f_b[i] = f_b[i+1] + v[i] + (C-x[i+1]) - (C-x[i]);
   }
 
-  ll max_f_a[N+1];
-  ll max_f_b[N+1];
-  max_f_a[0] = f_a[0];
-  max_f_b[0] = f_b[0];
+  ll max_f_a[N+2];
+  ll max_f_b[N+2];
+  max_f_a[0] = 0;
+  max_f_b[0] = 0;
+  max_f_a[N+1] = 0;
+  max_f_b[N+1] = 0;
   for(int i=1; i<=N; ++i){
     max_f_a[i] = max(max_f_a[i-1], f_a[i]);
   }
@@ -57,11 +59,5 @@ int main(){
 
   cout << max_v << endl;
   
-
-  for(int i=0; i<N+2; ++i){
-    cout << f_a[i] << " " << f_b[i] << " " <<  max_f_a[i] << " " << max_f_b[i] << endl;
-  }
-
-
   return 0;
 }
