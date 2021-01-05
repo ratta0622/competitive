@@ -2,6 +2,7 @@
 #include <climits>
 using namespace std;
 using ll = long long;
+#define max_dist 1LL<<60;
 
 int main(){
   int N, M, R;
@@ -20,11 +21,11 @@ int main(){
   }
   
   /* Warshall-Floyd Algorithm */
-  int dist[N][N];
+  ll dist[N][N];
   for(int i=0; i<N; ++i){
     for(int j=0; j<N; ++j){
       if(i==j) dist[i][j] = 0;
-      else dist[i][j] = INT_MAX;
+      else dist[i][j] = max_dist;
     }
   }
   for(int i=0; i<M; ++i){
