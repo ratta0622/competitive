@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
+using P = pair<int,int>;
 
 int main(){
   int N, M;
@@ -16,24 +17,25 @@ int main(){
   int ans = 0;
   vector<bool> flag(N, false);
   for(int i=0; i<N; ++i){
-    bool flag_tree = false;
+    bool flag_loop = false;
     if(flag[i]) continue;
-    stack<pair<int,int>> DFS;
-    DFS.push({i,-1});
-    while(!DFS.empty()){
-      pair<int,int> prev = DFS.top();
-      DFS.pop();
-      flag[from.first] = true;
-      for(int to : edge[from.first]){
-        if(flag[to] && to!=from.second){
-          cout << "loop" << to << " " << from << endl;
-          flag_tree = true;
+    queue<P> BFS;
+    BFS.push({i,-1});
+    while(!BFS.empty()){
+      P prev = BFS.front();
+      flag[prev.first] = true;
+      BFS.pop();
+      for(auto next : edge[prev.first]){
+        if(!flag[next]){
+          BFS.push({next, prev.first});
+        }else if(next != prev.second){
+          /* cout << "loop" << endl; */
+          flag_loop = true;
           break;
-        } 
-        if(!flag[to.first]) DFS.push({to,from});
+        }
       }
     }
-    if(!flag_tree) ++ans;
+    if(!flag_loop)++ans;
   }
 
   cout << ans << endl;
